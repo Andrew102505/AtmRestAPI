@@ -59,10 +59,10 @@ public Customer updateCustomer(Customer customer, int id) {
 	//we first need to check whether the customer with the given id exists in the db
 	//findByID method has .orElseThrowMethod
 	Customer existingCustomer = customerRepository.findById(id).orElseThrow((
-			) -> new ResourceNotFoundException("Employee", "Id", id));
+			) -> new ResourceNotFoundException("Customer", "Id", id));
 	
 	existingCustomer.setName(customer.getName());
-	//save existing customer to db after we've updated existing employee object with updated values
+	//save existing customer to db after we've updated existing customer object with updated values
 	customerRepository.save(existingCustomer);
 	return existingCustomer;//postman will automatically convert this object to readable json format
 }
