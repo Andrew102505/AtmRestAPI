@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.springboot_backend.model.Account;
 import com.example.springboot_backend.model.Customer;
 import com.example.springboot_backend.service.CustomerService;
 
@@ -52,7 +53,7 @@ public class CustomerController {
 		return customerService.getCustomerById(customerId);
 	}
 	
-	@PutMapping("/customers/{id}/{bankName}")
+	@PutMapping("/customers/{id}/{bankName}")//they will put the customer in json format that they want the existing customer to be like 
 	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") int customerId, @PathVariable("bankName") String bankName) {
 		return customerService.updateCustomer(customer, customerId, bankName);
 	}
@@ -60,5 +61,9 @@ public class CustomerController {
 	@DeleteMapping("/customers/{id}")
 	public Optional<Customer> deleteCustomer(@PathVariable("id") int customerId) {
 		return customerService.deleteCustomer(customerId);
+	}
+	@GetMapping("/accounts/customers/{customerId}")
+	public List<Account> getAllAccounts(@PathVariable("customerId") int id){
+		return customerService.getAllAccounts(id);
 	}
 }

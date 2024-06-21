@@ -3,6 +3,7 @@ package com.example.springboot_backend.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.springboot_backend.model.Account;
 import com.example.springboot_backend.model.Customer;
 
 public interface CustomerService {
@@ -19,4 +20,5 @@ public interface CustomerService {
 	
 	//will return the deleted customer
 	Optional<Customer> deleteCustomer(int id);
+	List<Account> getAllAccounts(int id);//customerId
 }

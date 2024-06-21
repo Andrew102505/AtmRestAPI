@@ -25,9 +25,8 @@ public class Customer {
 	@ManyToOne
 	private Bank bank;
 	/*
-	private Bank bank;
 	@OneToMany(mappedBy = "customer")
-	private List<Account> accounts;*/
+	private List<Account> accounts;*///we can still return a list of all the customer's accounts through our rest api
 	public String getName() {
 		return this.name;
 	}
