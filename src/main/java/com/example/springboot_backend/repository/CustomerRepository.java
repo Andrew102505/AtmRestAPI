@@ -18,3 +18,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{//<
 	@Query(value = "SELECT * FROM customer WHERE bank_id = :id", nativeQuery = true)//might not be able to access the column name
 	List<Customer> getAllCustomersWithId(int id);//id will be passed into the ?1, 1 stands for param #
 }
+//important to note that we can't do List of objects if the objects in the list also contain object instance
+//variable of type that the class the list is in
+//for example Bank class has list of customer objects and customer has a Bank object can't do this
+//we could have Bank class has list of customer objects and customer has hard drive instance variable 
+//object 
+//for now when we add the account class, we will it will have a customer object and that customer has a list
+//of account objects --> customer can't have an accounts list otherwise we'll get infinite nested problem
+//for purchase class the purchase will be linked to an account and the accounts will have a list of purchases
+//under it --> account can't have a list of purchases otherwise we'll get infinite nesting problem
