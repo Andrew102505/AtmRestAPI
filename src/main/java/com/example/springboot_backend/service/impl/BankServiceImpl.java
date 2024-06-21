@@ -1,5 +1,6 @@
 package com.example.springboot_backend.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,17 +8,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.springboot_backend.exception.ResourceNotFoundException;
 import com.example.springboot_backend.model.Bank;
+import com.example.springboot_backend.model.Customer;
 import com.example.springboot_backend.repository.BankRepository;
+import com.example.springboot_backend.repository.CustomerRepository;
 import com.example.springboot_backend.service.BankService;
 
 @Service
 public class BankServiceImpl implements BankService{
 
 	private BankRepository bankRepository;
+	private CustomerRepository customerRepository;
 	
-	public BankServiceImpl(BankRepository bankRepository) {
+	public BankServiceImpl(BankRepository bankRepository, CustomerRepository customerRepository) {
 		super();
 		this.bankRepository = bankRepository;
+		this.customerRepository = customerRepository;
 	}
 
 	@Override
@@ -60,6 +65,27 @@ public class BankServiceImpl implements BankService{
 			throw new ResourceNotFoundException("Bank", "Id", id);
 		}
 	}
-	
+
+	@Override
+	public List<Customer> getAllCustomers(int bankId) {
+		//so you need to look into the customer table and return all banks 
+		
+		//here we are using a customer method(getAllCustomersWithId) that we defined in the CustomerRepo
+		return customerRepository.getAllCustomersWithId(bankId);//method returns a Customer list
+		//customer repository object deals with objects in the customer table
+		/*List<Customer> allCustomers = customerRepository.findAll();
+		List<Customer> requestedCustomers = new ArrayList<>();
+		for(int i = 0; i<allCustomers.size();i++) {
+			if(allCustomers.get(i).getBank().getId()==bankId) {
+				requestedCustomers.add(allCustomers.get(i));
+			}
+		}
+		for(Customer c:requestedCustomers) {
+			System.out.println(c.getName());
+		}
+		
+		return requestedCustomers;
+		*/
+	}
 	
 }
