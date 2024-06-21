@@ -34,12 +34,12 @@ public class CustomerController {
 	
 	//create customer rest api
 	
-	@PostMapping("/customers")
+	@PostMapping("/customers/{bankName}")
 	//post request from client contains a customer in json format and we want to bind it to java object using @Request mapping
-	public Customer saveCustomer(@RequestBody Customer customer){
+	public Customer saveCustomer(@RequestBody Customer customer, @PathVariable("bankName") String bankName){
 		//response entity class allows rest api to provide complete response details like status, header, etc.
 		//System.out.println(customer.getName());
-		return customerService.saveCustomer(customer);
+		return customerService.saveCustomer(customer, bankName);
 	}
 	@GetMapping("/customers")
 	public List<Customer> getAllCustomers(){
@@ -52,9 +52,9 @@ public class CustomerController {
 		return customerService.getCustomerById(customerId);
 	}
 	
-	@PutMapping("/customers/{id}")
-	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") int customerId) {
-		return customerService.updateCustomer(customer, customerId);
+	@PutMapping("/customers/{id}/{bankName}")
+	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") int customerId, @PathVariable("bankName") String bankName) {
+		return customerService.updateCustomer(customer, customerId, bankName);
 	}
 	
 	@DeleteMapping("/customers/{id}")
