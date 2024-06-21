@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.springboot_backend.exception.ResourceNotFoundException;
+import com.example.springboot_backend.model.Account;
 import com.example.springboot_backend.model.Customer;
+import com.example.springboot_backend.repository.AccountRepository;
 import com.example.springboot_backend.repository.BankRepository;
 import com.example.springboot_backend.repository.CustomerRepository;
 import com.example.springboot_backend.service.CustomerService;
@@ -18,15 +20,17 @@ public class CustomerServiceImpl implements CustomerService{
 	//like we said we call service methods in controller and implement repo functionality in service class
 	private CustomerRepository customerRepository;
 	private BankRepository bankRepository;
+	private AccountRepository accountRepository;
 	//use constructor based dependency injection whenever you have mandatory parameters
 	//use setter based dependency injection whenever you have optional parameters(because then you can choose to call the set method or not)
 	
 	//constructor
 	//don't have to add @Autowired above constructor bacause if a class is a spring bean and it has only one constructor then spring will automatically configure instance variable dependencies
-	public CustomerServiceImpl(CustomerRepository customerRepository, BankRepository bankRepository) {
+	public CustomerServiceImpl(CustomerRepository customerRepository, BankRepository bankRepository, AccountRepository accountRepository) {
 		super();
 		this.customerRepository = customerRepository;
 		this.bankRepository = bankRepository;
+		this.accountRepository = accountRepository;
 	}
 	
 	@Override
@@ -84,6 +88,11 @@ public Optional<Customer> deleteCustomer(int id) {
 		throw new ResourceNotFoundException("Customer", "Id", id);
 	}
 	
+}
+
+@Override
+public List<Account> getAllAccounts(int customerId) {
+	return accountRepository.getAllAccountsWithId(customerId);
 }
 	
 

@@ -45,8 +45,8 @@ public class BankController {
 	public Optional<Bank> deleteBank(@PathVariable("id") int bankId){
 		return bankService.deleteBank(bankId);
 	}
-	@GetMapping("/banks/customers/{id}")//you might have to pass an id, i dont know if you can access the bank id if bank is passed as json format
-	public List<Customer> getAllCustomers(@PathVariable("id") int id){
+	@GetMapping("/banks/customers/{bankId}")//you might have to pass an id, i dont know if you can access the bank id if bank is passed as json format
+	public List<Customer> getAllCustomers(@PathVariable("bankId") int id){
 		
 		return bankService.getAllCustomers(id);
 	}

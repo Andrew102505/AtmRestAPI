@@ -54,7 +54,7 @@ public class BankServiceImpl implements BankService{
 		bankRepository.save(existingBank);
 		return existingBank;
 	}
-
+	
 	@Override
 	public Optional<Bank> deleteBank(int id) {
 		Optional<Bank> deletedBank = bankRepository.findById(id);
