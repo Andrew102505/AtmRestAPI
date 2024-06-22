@@ -16,8 +16,9 @@ public interface CustomerService {
 	 * they want to set an existing customer object to, however, we dont want them to pass the id object
 	 * within the json format(complicated), so they will specify the id of the existing customer in the url
 	 */
-	Customer updateCustomer(Customer customer, int customerId, int bankId);
 	
+	Customer updateCustomerName(Customer customer, int customerId);
+	Customer updateCustomerBank(int customerId, int bankId);
 	//will return the deleted customer
 	Optional<Customer> deleteCustomer(int id);
 	List<Account> getAllAccounts(int id);//customerId

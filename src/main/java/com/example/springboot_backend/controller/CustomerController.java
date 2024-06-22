@@ -53,11 +53,14 @@ public class CustomerController {
 		return customerService.getCustomerById(customerId);
 	}
 	
-	@PutMapping("/customers/{customerId}/{bankId}")//they will put the customer in json format that they want the existing customer to be like 
-	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("customerId") int customerId, @PathVariable("bankId") int bankId) {
-		return customerService.updateCustomer(customer, customerId, bankId);
+	@PutMapping("/customers/{customerId}")//they will put the customer in json format that they want the existing customer to be like 
+	public Customer updateCustomerName(@RequestBody Customer customer, @PathVariable("customerId") int customerId) {
+		return customerService.updateCustomerName(customer, customerId);
 	}
-	
+	@PutMapping("/customers/{customerId}/{bankId}")
+	public Customer updateCustomerBank(@PathVariable("customerId") int customerId, @PathVariable("bankId") int bankId) {
+		return customerService.updateCustomerBank(customerId, bankId);
+	}
 	@DeleteMapping("/customers/{id}")
 	public Optional<Customer> deleteCustomer(@PathVariable("id") int customerId) {
 		return customerService.deleteCustomer(customerId);
