@@ -62,7 +62,7 @@ public class CustomerController {
 	public Optional<Customer> deleteCustomer(@PathVariable("id") int customerId) {
 		return customerService.deleteCustomer(customerId);
 	}
-	@GetMapping("/accounts/customers/{customerId}")
+	@GetMapping("/customers/accounts/{customerId}")
 	public List<Account> getAllAccounts(@PathVariable("customerId") int id){
 		return customerService.getAllAccounts(id);
 	}

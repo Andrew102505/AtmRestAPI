@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.springboot_backend.exception.ResourceNotFoundException;
 import com.example.springboot_backend.model.Account;
 import com.example.springboot_backend.model.Customer;
+import com.example.springboot_backend.model.Purchase;
 import com.example.springboot_backend.repository.AccountRepository;
 import com.example.springboot_backend.repository.CustomerRepository;
+import com.example.springboot_backend.repository.PurchaseRepository;
 import com.example.springboot_backend.service.AccountService;
 
 @Service
@@ -17,11 +19,13 @@ public class AccountServiceImpl implements AccountService{
 	
 	private AccountRepository accountRepository;
 	private CustomerRepository customerRepository;
+	private PurchaseRepository purchaseRepository;
 	
-	public AccountServiceImpl(AccountRepository accountRepository, CustomerRepository customerRepository) {
+	public AccountServiceImpl(AccountRepository accountRepository, CustomerRepository customerRepository, PurchaseRepository purchaseRepository) {
 		super();
 		this.accountRepository = accountRepository;
 		this.customerRepository = customerRepository;
+		this.purchaseRepository = purchaseRepository;
 	}
 
 	@Override
@@ -76,7 +80,7 @@ public class AccountServiceImpl implements AccountService{
 		
 	}
 	
-
+	
 	@Override
 	public Optional<Account> deleteAccount(int id) {
 		Optional<Account> deletedAccount = accountRepository.findById(id);
@@ -87,6 +91,11 @@ public class AccountServiceImpl implements AccountService{
 			throw new ResourceNotFoundException("Account", "Id", id);
 		}
 		
+	}
+
+	@Override
+	public List<Purchase> getAllPurchases(int id) {
+		return purchaseRepository.getAllPurchasesWithId(id);
 	}
 	
 	
