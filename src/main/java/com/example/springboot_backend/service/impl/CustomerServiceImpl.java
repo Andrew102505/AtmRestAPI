@@ -63,19 +63,21 @@ public Customer getCustomerById(int id) {
 }
 
 @Override
-public Customer updateCustomer(Customer customer, int customerId, int bankId) {//id of the customer we want to update, and name of bank we want new customer to belong to
-	//we first need to check whether the customer with the given id exists in the db
-	//findByID method has .orElseThrowMethod
+public Customer updateCustomerName(Customer customer, int customerId) {
 	Customer existingCustomer = customerRepository.findById(customerId).orElseThrow((
 			) -> new ResourceNotFoundException("Customer", "Id", customerId));
-	
 	existingCustomer.setName(customer.getName());
-	existingCustomer.setBank(bankRepository.findById(bankId).get());//this customer parameter has a bank name because it was passed just now as a json object, the bank name from this entity is not deleted until its stored(its transient)
-	//save existing customer to db after we've updated existing customer object with updated values
 	customerRepository.save(existingCustomer);
-	return existingCustomer;//postman will automatically convert this object to readable json format
+	return existingCustomer;
 }
-
+@Override
+public Customer updateCustomerBank(int customerId, int bankId) {
+	Customer existingCustomer = customerRepository.findById(customerId).orElseThrow((
+			) -> new ResourceNotFoundException("Customer", "Id", customerId));
+	existingCustomer.setBank(bankRepository.findById(bankId).get());
+	customerRepository.save(existingCustomer);
+	return existingCustomer;
+}
 @Override
 public Optional<Customer> deleteCustomer(int id) {
 	//check that customer with id passed exists
