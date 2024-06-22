@@ -34,9 +34,9 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	
 	@Override
-	public Customer saveCustomer(Customer customer, String bankName) {
+	public Customer saveCustomer(Customer customer, int bankId) {
 		//we still have not set the bank that the customer belongs to
-		customer.setBank(bankRepository.getBankByName(bankName));
+		customer.setBank(bankRepository.findById(bankId).get());
 		//now our customer has a bank object initialized and hibernate/jpa will store the banks id to the customer table since we retrived a bank from the table
 		//this save method is a part of jpa, it also knows to save an object of type customer to customers table since in the customers class we specified the table name as "customer" for customer entity, if we didn't specify table name in class it would map the object to table named "customer" since we still marked the class with @Entity 
 		return customerRepository.save(customer);
@@ -63,14 +63,14 @@ public Customer getCustomerById(int id) {
 }
 
 @Override
-public Customer updateCustomer(Customer customer, int id, String bankName) {//id of the customer we want to update, and name of bank we want new customer to belong to
+public Customer updateCustomer(Customer customer, int customerId, int bankId) {//id of the customer we want to update, and name of bank we want new customer to belong to
 	//we first need to check whether the customer with the given id exists in the db
 	//findByID method has .orElseThrowMethod
-	Customer existingCustomer = customerRepository.findById(id).orElseThrow((
-			) -> new ResourceNotFoundException("Customer", "Id", id));
+	Customer existingCustomer = customerRepository.findById(customerId).orElseThrow((
+			) -> new ResourceNotFoundException("Customer", "Id", customerId));
 	
 	existingCustomer.setName(customer.getName());
-	existingCustomer.setBank(bankRepository.getBankByName(bankName));//this customer parameter has a bank name because it was passed just now as a json object, the bank name from this entity is not deleted until its stored(its transient)
+	existingCustomer.setBank(bankRepository.findById(bankId).get());//this customer parameter has a bank name because it was passed just now as a json object, the bank name from this entity is not deleted until its stored(its transient)
 	//save existing customer to db after we've updated existing customer object with updated values
 	customerRepository.save(existingCustomer);
 	return existingCustomer;//postman will automatically convert this object to readable json format

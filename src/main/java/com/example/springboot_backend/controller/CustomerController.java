@@ -35,12 +35,12 @@ public class CustomerController {
 	
 	//create customer rest api
 	
-	@PostMapping("/customers/{bankName}")
+	@PostMapping("/customers/{bankId}")
 	//post request from client contains a customer in json format and we want to bind it to java object using @Request mapping
-	public Customer saveCustomer(@RequestBody Customer customer, @PathVariable("bankName") String bankName){
+	public Customer saveCustomer(@RequestBody Customer customer, @PathVariable("bankId") int bankId){
 		//response entity class allows rest api to provide complete response details like status, header, etc.
 		//System.out.println(customer.getName());
-		return customerService.saveCustomer(customer, bankName);
+		return customerService.saveCustomer(customer, bankId);
 	}
 	@GetMapping("/customers")
 	public List<Customer> getAllCustomers(){
@@ -53,9 +53,9 @@ public class CustomerController {
 		return customerService.getCustomerById(customerId);
 	}
 	
-	@PutMapping("/customers/{id}/{bankName}")//they will put the customer in json format that they want the existing customer to be like 
-	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") int customerId, @PathVariable("bankName") String bankName) {
-		return customerService.updateCustomer(customer, customerId, bankName);
+	@PutMapping("/customers/{customerId}/{bankId}")//they will put the customer in json format that they want the existing customer to be like 
+	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("customerId") int customerId, @PathVariable("bankId") int bankId) {
+		return customerService.updateCustomer(customer, customerId, bankId);
 	}
 	
 	@DeleteMapping("/customers/{id}")
