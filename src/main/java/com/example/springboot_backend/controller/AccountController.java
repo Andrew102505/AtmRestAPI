@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springboot_backend.model.Account;
+import com.example.springboot_backend.model.Purchase;
 import com.example.springboot_backend.service.AccountService;
 
 @RestController
@@ -47,6 +48,10 @@ public class AccountController {
 	@DeleteMapping("/accounts/{accountId}")//id of account in db that we want to delete
 	public Optional<Account> deleteAccount(@PathVariable("accountId") int accountId){
 		return accountService.deleteAccount(accountId);
+	}
+	@GetMapping("/accounts/purchases/{accountId}")
+	public List<Purchase> getAllPurchases(@PathVariable("accountId") int id){
+		return accountService.getAllPurchases(id);
 	}
 	
 }
